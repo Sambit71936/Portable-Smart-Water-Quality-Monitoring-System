@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AQUA MONITOR - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary": "#005c3b",
+                        "inverse-primary": "#006976",
+                        "surface-variant": "#1e2633",
+                        "on-secondary-fixed": "#00472d",
+                        "surface-container-lowest": "#000000",
+                        "surface-container-low": "#0d141e",
+                        "secondary-fixed": "#00ffab",
+                        "surface-container-highest": "#1e2633",
+                        "primary-fixed-dim": "#00d4ec",
+                        "on-tertiary-container": "#ffffff",
+                        "outline": "#707681",
+                        "inverse-surface": "#f9f9ff",
+                        "surface-dim": "#080e17",
+                        "tertiary-dim": "#7e51ff",
+                        "on-background": "#e0e5f3",
+                        "on-error": "#490006",
+                        "surface-container-high": "#18202c",
+                        "surface-tint": "#81ecff",
+                        "background": "#080e17",
+                        "secondary": "#00ffab",
+                        "inverse-on-surface": "#4f5560",
+                        "on-primary-fixed-variant": "#005762",
+                        "on-secondary-container": "#e1ffea",
+                        "tertiary-fixed": "#b8a3ff",
+                        "surface-container": "#131a25",
+                        "on-secondary-fixed-variant": "#006742",
+                        "outline-variant": "#424853",
+                        "error-dim": "#d7383b",
+                        "secondary-dim": "#00efa0",
+                        "on-tertiary-fixed-variant": "#4000ad",
+                        "on-surface": "#e0e5f3",
+                        "primary-fixed": "#00e3fd",
+                        "tertiary-fixed-dim": "#ab93ff",
+                        "primary-dim": "#00d4ec",
+                        "error": "#ff716c",
+                        "error-container": "#9f0519",
+                        "tertiary": "#a68cff",
+                        "tertiary-container": "#7c4dff",
+                        "surface-bright": "#232d3b",
+                        "on-tertiary": "#25006b",
+                        "on-tertiary-fixed": "#1c0055",
+                        "on-primary-container": "#004d57",
+                        "on-primary-fixed": "#003840",
+                        "secondary-container": "#006c46",
+                        "on-surface-variant": "#a6abb8",
+                        "secondary-fixed-dim": "#00efa0",
+                        "surface": "#080e17",
+                        "on-primary": "#005762",
+                        "primary-container": "#00e3fd",
+                        "primary": "#81ecff",
+                        "on-error-container": "#ffa8a3"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(30, 38, 51, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(129, 236, 255, 0.15);
+        }
+        .gauge-svg {
+            transform: rotate(-90deg);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080e17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2633;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#0d141e]/60 backdrop-blur-md border-b border-[#81ecff]/15 shadow-[0_8px_32px_0_rgba(0,229,255,0.1)]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00E5FF] text-2xl" data-icon="water_drop">water_drop</span>
+<div class="flex flex-col">
+<h1 class="text-[#00E5FF] font-['Space_Grotesk'] font-bold tracking-widest text-sm uppercase">AQUA MONITOR</h1>
+<span class="text-[10px] text-slate-500 font-medium tracking-[0.2em] uppercase">Smart Water Quality Testing System</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-error-container/20 px-3 py-1 rounded-full border border-error/30 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-error shadow-[0_0_8px_rgba(255,113,108,0.8)]"></span>
+<span class="text-error font-headline text-[10px] font-bold tracking-tighter uppercase">DISCONNECTED</span>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-5xl mx-auto">
+<!-- Action Row -->
+<section class="flex flex-wrap items-center justify-between gap-4 mb-8">
+<div class="flex gap-3">
+<button class="bg-primary text-on-primary font-headline font-bold text-xs py-3 px-6 rounded-full flex items-center gap-2 hover:opacity-90 transition-all active:scale-95 shadow-[0_0_20px_rgba(129,236,255,0.3)]">
+<span class="material-symbols-outlined text-sm" data-icon="bluetooth">bluetooth</span>
+                    CONNECT DEVICE
+                </button>
+<button class="glass-panel text-primary font-headline font-bold text-xs py-3 px-6 rounded-full flex items-center gap-2 hover:bg-surface-bright/20 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+                    REFRESH DATA
+                </button>
+</div>
+<div class="glass-panel p-1 rounded-full flex items-center">
+<button class="px-4 py-1.5 rounded-full text-[10px] font-bold font-headline bg-primary text-on-primary">°C</button>
+<button class="px-4 py-1.5 rounded-full text-[10px] font-bold font-headline text-slate-500">°F</button>
+</div>
+</section>
+<!-- Main Gauges Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+<!-- Card 1: Temp -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase mb-1">Temperature</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-bold text-on-surface">27.9</span>
+<span class="text-lg text-slate-400 font-headline">°C</span>
+</div>
+</div>
+<span class="bg-secondary-container/30 text-secondary text-[10px] px-2.5 py-1 rounded-md font-bold border border-secondary/20">ACCEPTABLE</span>
+</div>
+<div class="relative flex justify-center pt-4">
+<svg class="gauge-svg w-40 h-40" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="125.6 251.2" stroke-linecap="round" stroke-width="8"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(0,255,171,0.4)]" cx="50" cy="50" fill="transparent" r="40" stroke="url(#tempGradient)" stroke-dasharray="88 251.2" stroke-linecap="round" stroke-width="8"></circle>
+<defs>
+<lineargradient id="tempGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:var(--tw-color-primary)"></stop>
+<stop offset="100%" style="stop-color:var(--tw-color-secondary)"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center pt-8">
+<span class="material-symbols-outlined text-primary-dim text-3xl" data-icon="device_thermostat">device_thermostat</span>
+</div>
+</div>
+</div>
+<!-- Card 2: pH -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase mb-1">pH Level</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-bold text-on-surface">7.40</span>
+<span class="text-lg text-slate-400 font-headline">pH</span>
+</div>
+</div>
+<span class="bg-secondary text-on-secondary text-[10px] px-2.5 py-1 rounded-md font-bold shadow-[0_0_15px_rgba(0,255,171,0.3)]">EXCELLENT</span>
+</div>
+<div class="relative flex justify-center pt-4">
+<svg class="gauge-svg w-40 h-40" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="125.6 251.2" stroke-linecap="round" stroke-width="8"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(0,255,171,0.6)]" cx="50" cy="50" fill="transparent" r="40" stroke="url(#phGradient)" stroke-dasharray="100 251.2" stroke-linecap="round" stroke-width="8"></circle>
+<defs>
+<lineargradient id="phGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:var(--tw-color-secondary)"></stop>
+<stop offset="100%" style="stop-color:var(--tw-color-secondary-dim)"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center pt-8">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="science">science</span>
+</div>
+</div>
+</div>
+<!-- Card 3: TDS -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/5 rounded-full blur-3xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase mb-1">TDS</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-bold text-on-surface">115</span>
+<span class="text-lg text-slate-400 font-headline">ppm</span>
+</div>
+</div>
+<span class="bg-primary-container/30 text-primary text-[10px] px-2.5 py-1 rounded-md font-bold border border-primary/20">GOOD</span>
+</div>
+<div class="relative flex justify-center pt-4">
+<svg class="gauge-svg w-40 h-40" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="125.6 251.2" stroke-linecap="round" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#81ecff" stroke-dasharray="60 251.2" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center pt-8">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="blur_on">blur_on</span>
+</div>
+</div>
+</div>
+<!-- Card 4: EC -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-bright/10 rounded-full blur-3xl group-hover:bg-surface-bright/20 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-on-surface-variant text-[10px] font-bold tracking-widest uppercase mb-1">Conductivity</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-bold text-on-surface">189</span>
+<span class="text-lg text-slate-400 font-headline">µS/cm</span>
+</div>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2.5 py-1 rounded-md font-bold border border-outline-variant/30">NORMAL</span>
+</div>
+<div class="relative flex justify-center pt-4">
+<svg class="gauge-svg w-40 h-40" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="125.6 251.2" stroke-linecap="round" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#a6abb8" stroke-dasharray="75 251.2" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center pt-8">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl" data-icon="bolt">bolt</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Risk Level -->
+<section class="glass-panel rounded-xl p-8 mb-10">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="text-on-surface-variant text-xs font-bold tracking-[0.2em] uppercase mb-2">Current Risk Level</h2>
+<span class="text-5xl font-headline font-bold text-secondary">LOW</span>
+</div>
+<div class="text-right">
+<span class="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">Confidence Rating</span>
+<p class="text-primary font-headline font-bold">98.4%</p>
+</div>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden flex relative">
+<div class="h-full bg-secondary w-1/3 shadow-[0_0_15px_rgba(0,255,171,0.5)]"></div>
+<div class="h-full bg-surface-container-highest/50 w-2/3"></div>
+<!-- Visual Ticks -->
+<div class="absolute inset-0 flex justify-between px-1">
+<div class="h-full w-px bg-background/20"></div>
+<div class="h-full w-px bg-background/20"></div>
+<div class="h-full w-px bg-background/20"></div>
+</div>
+</div>
+<div class="flex justify-between mt-3 text-[9px] font-bold text-slate-500 tracking-tighter uppercase">
+<span>Safe</span>
+<span>Moderate</span>
+<span>Critical</span>
+</div>
+</section>
+<!-- Recommendations Section -->
+<section class="mb-12">
+<h2 class="text-on-surface font-headline font-bold text-xl tracking-tight mb-6 flex items-center gap-3">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                Water Usage Analysis
+            </h2>
+<div class="space-y-4">
+<!-- Drinkable -->
+<div class="surface-container-low p-5 rounded-xl border-l-4 border-secondary flex items-center gap-6 group hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="local_drink">local_drink</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-sm tracking-wide">Drinking</h4>
+<span class="bg-secondary/20 text-secondary text-[9px] font-bold px-2 py-0.5 rounded uppercase">Suitable</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed">Mineral levels and pH are within WHO safety limits for human consumption.</p>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-secondary transition-colors" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Irrigation -->
+<div class="surface-container-low p-5 rounded-xl border-l-4 border-secondary flex items-center gap-6 group hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-sm tracking-wide">Irrigation</h4>
+<span class="bg-secondary/20 text-secondary text-[9px] font-bold px-2 py-0.5 rounded uppercase">Suitable</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed">Sodium and conductivity levels are excellent for crop growth and soil health.</p>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-secondary transition-colors" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Aquaculture -->
+<div class="surface-container-low p-5 rounded-xl border-l-4 border-tertiary flex items-center gap-6 group hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="set_meal">set_meal</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-sm tracking-wide">Aquaculture</h4>
+<span class="bg-tertiary/20 text-tertiary text-[9px] font-bold px-2 py-0.5 rounded uppercase">Caution</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed">pH levels are near upper thresholds for sensitive aquatic species. Monitor closely.</p>
+</div>
+<span class="material-symbols-outlined text-tertiary/50" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<!-- Household -->
+<div class="surface-container-low p-5 rounded-xl border-l-4 border-secondary flex items-center gap-6 group hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="home_repair_service">home_repair_service</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-sm tracking-wide">Household</h4>
+<span class="bg-secondary/20 text-secondary text-[9px] font-bold px-2 py-0.5 rounded uppercase">Suitable</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed">Low hardness levels ensure longevity of household pipes and appliances.</p>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-secondary transition-colors" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Industrial -->
+<div class="surface-container-low p-5 rounded-xl border-l-4 border-error-dim flex items-center gap-6 group hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 rounded-full bg-error-dim/10 flex items-center justify-center text-error-dim">
+<span class="material-symbols-outlined" data-icon="factory">factory</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-sm tracking-wide">Industrial</h4>
+<span class="bg-error-dim/20 text-error-dim text-[9px] font-bold px-2 py-0.5 rounded uppercase">Not Suitable</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed">Mineral composition exceeds tolerance for high-precision manufacturing coolant.</p>
+</div>
+<span class="material-symbols-outlined text-error-dim" data-icon="error" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+</div>
+</section>
+<!-- Final Actions -->
+<section class="flex flex-col gap-4 mb-12">
+<div class="grid grid-cols-2 gap-4">
+<button class="surface-container-highest border border-outline-variant/20 py-4 rounded-xl flex items-center justify-center gap-3 font-headline font-bold text-xs hover:bg-surface-bright/30 transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="picture_as_pdf">picture_as_pdf</span>
+                    Export PDF Report
+                </button>
+<button class="surface-container-highest border border-outline-variant/20 py-4 rounded-xl flex items-center justify-center gap-3 font-headline font-bold text-xs hover:bg-surface-bright/30 transition-all">
+<span class="material-symbols-outlined text-secondary" data-icon="csv">csv</span>
+                    Export CSV Data
+                </button>
+</div>
+<button class="relative group bg-surface-container-high p-[1px] rounded-xl overflow-hidden active:scale-[0.98] transition-transform">
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-tertiary to-secondary animate-pulse group-hover:opacity-100 opacity-50"></div>
+<div class="relative bg-background m-[1px] py-5 rounded-[11px] flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="verified">verified</span>
+<span class="font-headline font-extrabold tracking-widest text-sm uppercase">View WHO Standards</span>
+</div>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-8 px-4 bg-[#0d141e]/80 backdrop-blur-2xl rounded-t-[24px] border-t border-[#81ecff]/15 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center text-[#00E5FF] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)] scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="monitoring" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">Dashboard</span>
+</a>
+<!-- History -->
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="history">history</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">History</span>
+</a>
+<!-- Analytics -->
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="query_stats">query_stats</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">Analytics</span>
+</a>
+<!-- WHO Standards -->
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="fact_check">fact_check</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">WHO Standards</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aqua Monitor - History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary": "#005c3b",
+                        "inverse-primary": "#006976",
+                        "surface-variant": "#1e2633",
+                        "on-secondary-fixed": "#00472d",
+                        "surface-container-lowest": "#000000",
+                        "surface-container-low": "#0d141e",
+                        "secondary-fixed": "#00ffab",
+                        "surface-container-highest": "#1e2633",
+                        "primary-fixed-dim": "#00d4ec",
+                        "on-tertiary-container": "#ffffff",
+                        "outline": "#707681",
+                        "inverse-surface": "#f9f9ff",
+                        "surface-dim": "#080e17",
+                        "tertiary-dim": "#7e51ff",
+                        "on-background": "#e0e5f3",
+                        "on-error": "#490006",
+                        "surface-container-high": "#18202c",
+                        "surface-tint": "#81ecff",
+                        "background": "#080e17",
+                        "secondary": "#00ffab",
+                        "inverse-on-surface": "#4f5560",
+                        "on-primary-fixed-variant": "#005762",
+                        "on-secondary-container": "#e1ffea",
+                        "tertiary-fixed": "#b8a3ff",
+                        "surface-container": "#131a25",
+                        "on-secondary-fixed-variant": "#006742",
+                        "outline-variant": "#424853",
+                        "error-dim": "#d7383b",
+                        "secondary-dim": "#00efa0",
+                        "on-tertiary-fixed-variant": "#4000ad",
+                        "on-surface": "#e0e5f3",
+                        "primary-fixed": "#00e3fd",
+                        "tertiary-fixed-dim": "#ab93ff",
+                        "primary-dim": "#00d4ec",
+                        "error": "#ff716c",
+                        "error-container": "#9f0519",
+                        "tertiary": "#a68cff",
+                        "tertiary-container": "#7c4dff",
+                        "surface-bright": "#232d3b",
+                        "on-tertiary": "#25006b",
+                        "on-tertiary-fixed": "#1c0055",
+                        "on-primary-container": "#004d57",
+                        "on-primary-fixed": "#003840",
+                        "secondary-container": "#006c46",
+                        "on-surface-variant": "#a6abb8",
+                        "secondary-fixed-dim": "#00efa0",
+                        "surface": "#080e17",
+                        "on-primary": "#005762",
+                        "primary-container": "#00e3fd",
+                        "primary": "#81ecff",
+                        "on-error-container": "#ffa8a3"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(30, 38, 51, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(129, 236, 255, 0.15);
+        }
+        .glow-border:hover {
+            border-color: rgba(0, 229, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen pb-32">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#0d141e]/60 backdrop-blur-md border-b border-[#81ecff]/15 shadow-[0_8px_32px_0_rgba(0,229,255,0.1)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#00E5FF]" data-icon="water_drop">water_drop</span>
+<h1 class="font-['Space_Grotesk'] tracking-widest uppercase font-bold text-sm text-[#00E5FF]">AQUA MONITOR</h1>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full border border-outline-variant/20">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-['Space_Grotesk'] tracking-tighter uppercase font-bold text-[10px] text-slate-400">DISCONNECTED</span>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-5xl mx-auto">
+<!-- Editorial Header Section -->
+<div class="mb-10">
+<p class="text-primary font-label text-xs tracking-[0.2em] uppercase mb-2">System Archives</p>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<h2 class="font-headline text-5xl font-bold tracking-tighter">History</h2>
+<div class="flex gap-2">
+<button class="bg-surface-variant/40 backdrop-blur px-4 py-2 rounded-full border border-outline-variant/15 text-xs font-medium flex items-center gap-2 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+<button class="bg-surface-variant/40 backdrop-blur px-4 py-2 rounded-full border border-outline-variant/15 text-xs font-medium flex items-center gap-2 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+</div>
+<!-- History Feed: Bento Grid Variation for High-End Look -->
+<div class="grid grid-cols-1 gap-6">
+<!-- Entry 1: Critical/Action Required -->
+<div class="glass-card glow-border rounded-xl p-6 transition-all duration-300">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Oct 12, 10:24 AM</span>
+<div class="flex items-center gap-3">
+<h3 class="font-headline text-xl font-semibold tracking-tight">System Reading #8292</h3>
+<span class="px-3 py-0.5 rounded-full bg-error/10 border border-error/30 text-error text-[10px] font-bold uppercase tracking-wider">Alert</span>
+</div>
+</div>
+<div class="h-px flex-grow bg-outline-variant/10 hidden md:block mx-8"></div>
+<button class="p-2 rounded-full bg-surface-container-highest hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="open_in_full">open_in_full</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Temperature</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">24.2</span>
+<span class="text-sm text-on-surface-variant">°C</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Acidity (pH)</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold text-error">8.4</span>
+<span class="text-sm text-on-surface-variant">pH</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">TDS</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">142</span>
+<span class="text-sm text-on-surface-variant">ppm</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">EC</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">284</span>
+<span class="text-sm text-on-surface-variant">μS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Entry 2: Optimal State -->
+<div class="glass-card glow-border rounded-xl p-6 transition-all duration-300 border-l-4 border-l-secondary/40">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Oct 12, 06:12 AM</span>
+<div class="flex items-center gap-3">
+<h3 class="font-headline text-xl font-semibold tracking-tight">System Reading #8291</h3>
+<span class="px-3 py-0.5 rounded-full bg-secondary/10 border border-secondary/30 text-secondary text-[10px] font-bold uppercase tracking-wider">Optimal</span>
+</div>
+</div>
+<div class="h-px flex-grow bg-outline-variant/10 hidden md:block mx-8"></div>
+<button class="p-2 rounded-full bg-surface-container-highest hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="open_in_full">open_in_full</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Temperature</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold text-secondary">22.8</span>
+<span class="text-sm text-on-surface-variant">°C</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Acidity (pH)</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">7.2</span>
+<span class="text-sm text-on-surface-variant">pH</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">TDS</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">138</span>
+<span class="text-sm text-on-surface-variant">ppm</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">EC</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold text-secondary">276</span>
+<span class="text-sm text-on-surface-variant">μS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Entry 3: Maintenance/Calibration -->
+<div class="glass-card glow-border rounded-xl p-6 transition-all duration-300">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Oct 11, 09:45 PM</span>
+<div class="flex items-center gap-3">
+<h3 class="font-headline text-xl font-semibold tracking-tight">System Reading #8290</h3>
+<span class="px-3 py-0.5 rounded-full bg-tertiary/10 border border-tertiary/30 text-tertiary text-[10px] font-bold uppercase tracking-wider">Calibration</span>
+</div>
+</div>
+<div class="h-px flex-grow bg-outline-variant/10 hidden md:block mx-8"></div>
+<button class="p-2 rounded-full bg-surface-container-highest hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="open_in_full">open_in_full</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Temperature</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">23.1</span>
+<span class="text-sm text-on-surface-variant">°C</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Acidity (pH)</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">7.0</span>
+<span class="text-sm text-on-surface-variant">pH</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">TDS</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold text-tertiary">145</span>
+<span class="text-sm text-on-surface-variant">ppm</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">EC</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">290</span>
+<span class="text-sm text-on-surface-variant">μS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Visualization Card Interstitial -->
+<div class="relative overflow-hidden glass-card rounded-xl p-8 flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br from-surface-container-low to-surface-dim">
+<div class="flex-1">
+<h4 class="font-headline text-2xl font-bold mb-4">Quality Trends</h4>
+<p class="text-on-surface-variant text-sm max-w-md">Your water quality has improved by 14% over the last 24 hours. pH levels are stabilizing within the recommended WHO thresholds.</p>
+<div class="mt-6 flex gap-4">
+<div class="h-2 w-24 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-3/4"></div>
+</div>
+<span class="text-[10px] uppercase font-bold tracking-widest text-secondary">Stability +14%</span>
+</div>
+</div>
+<div class="w-full md:w-64 h-32 md:h-48 relative">
+<img class="w-full h-full object-cover rounded-lg opacity-40 mix-blend-screen" data-alt="abstract glowing blue digital line chart representing data visualization of water metrics on dark futuristic interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnzYz95JlWMD7Us-c7KZkDkDTX_MCdh_vfIiajeB4vI2zrmQ5IYllqSVMgJ8c_Mhkhsr9C0TOUm-4I5JZd3CFXlySecE4LiaUWJGbkAt8XCxqxBdw3opBQzDkFWJIAjJJR8putgLEgs9uKWd6tjOgXCljJtmgwSzuYX4y3Aaw5eVFUIR9wyHWj14y8lV-0nfgV4eKImqJjBkbdyS3TBYMQ9WN8Ib9ERqBVVYMBRJ_nBKijlNZ2ZNlJxjV65-TduaKjyeBbus3Je1I"/>
+</div>
+</div>
+<!-- Entry 4: Standard/Quiet -->
+<div class="glass-card glow-border rounded-xl p-6 transition-all duration-300">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Oct 11, 02:30 PM</span>
+<div class="flex items-center gap-3">
+<h3 class="font-headline text-xl font-semibold tracking-tight">System Reading #8289</h3>
+<span class="px-3 py-0.5 rounded-full bg-slate-500/10 border border-slate-500/30 text-slate-400 text-[10px] font-bold uppercase tracking-wider">Log</span>
+</div>
+</div>
+<div class="h-px flex-grow bg-outline-variant/10 hidden md:block mx-8"></div>
+<button class="p-2 rounded-full bg-surface-container-highest hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="open_in_full">open_in_full</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Temperature</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">22.5</span>
+<span class="text-sm text-on-surface-variant">°C</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">Acidity (pH)</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">7.3</span>
+<span class="text-sm text-on-surface-variant">pH</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">TDS</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">140</span>
+<span class="text-sm text-on-surface-variant">ppm</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant text-[10px] uppercase font-medium">EC</p>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-3xl font-bold">280</span>
+<span class="text-sm text-on-surface-variant">μS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More Section -->
+<div class="mt-12 flex justify-center">
+<button class="group flex items-center gap-3 text-sm font-bold tracking-widest uppercase py-4 px-8 rounded-full border border-outline-variant/20 hover:border-primary/50 transition-all">
+                Load Archive
+                <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-8 px-4 bg-[#0d141e]/80 backdrop-blur-2xl rounded-t-[24px] border-t border-[#81ecff]/15 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide mt-1">Dashboard</span>
+</a>
+<!-- History - ACTIVE -->
+<a class="flex flex-col items-center justify-center text-[#00E5FF] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)] scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined font-black" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide mt-1">History</span>
+</a>
+<!-- Analytics -->
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide mt-1">Analytics</span>
+</a>
+<!-- WHO Standards -->
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide mt-1">WHO Standards</span>
+</a>
+</nav>
+</body></html>

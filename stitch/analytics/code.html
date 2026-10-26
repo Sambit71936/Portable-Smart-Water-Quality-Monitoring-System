@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analytics — AQUA MONITOR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary": "#005c3b",
+                        "inverse-primary": "#006976",
+                        "surface-variant": "#1e2633",
+                        "on-secondary-fixed": "#00472d",
+                        "surface-container-lowest": "#000000",
+                        "surface-container-low": "#0d141e",
+                        "secondary-fixed": "#00ffab",
+                        "surface-container-highest": "#1e2633",
+                        "primary-fixed-dim": "#00d4ec",
+                        "on-tertiary-container": "#ffffff",
+                        "outline": "#707681",
+                        "inverse-surface": "#f9f9ff",
+                        "surface-dim": "#080e17",
+                        "tertiary-dim": "#7e51ff",
+                        "on-background": "#e0e5f3",
+                        "on-error": "#490006",
+                        "surface-container-high": "#18202c",
+                        "surface-tint": "#81ecff",
+                        "background": "#080e17",
+                        "secondary": "#00ffab",
+                        "inverse-on-surface": "#4f5560",
+                        "on-primary-fixed-variant": "#005762",
+                        "on-secondary-container": "#e1ffea",
+                        "tertiary-fixed": "#b8a3ff",
+                        "surface-container": "#131a25",
+                        "on-secondary-fixed-variant": "#006742",
+                        "outline-variant": "#424853",
+                        "error-dim": "#d7383b",
+                        "secondary-dim": "#00efa0",
+                        "on-tertiary-fixed-variant": "#4000ad",
+                        "on-surface": "#e0e5f3",
+                        "primary-fixed": "#00e3fd",
+                        "tertiary-fixed-dim": "#ab93ff",
+                        "primary-dim": "#00d4ec",
+                        "error": "#ff716c",
+                        "error-container": "#9f0519",
+                        "tertiary": "#a68cff",
+                        "tertiary-container": "#7c4dff",
+                        "surface-bright": "#232d3b",
+                        "on-tertiary": "#25006b",
+                        "on-tertiary-fixed": "#1c0055",
+                        "on-primary-container": "#004d57",
+                        "on-primary-fixed": "#003840",
+                        "secondary-container": "#006c46",
+                        "on-surface-variant": "#a6abb8",
+                        "secondary-fixed-dim": "#00efa0",
+                        "surface": "#080e17",
+                        "on-primary": "#005762",
+                        "primary-container": "#00e3fd",
+                        "primary": "#81ecff",
+                        "on-error-container": "#ffa8a3"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 38, 51, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(129, 236, 255, 0.15);
+        }
+        .neon-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(129, 236, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(129, 236, 255, 0.05) 1px, transparent 1px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-container min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#0d141e]/60 backdrop-blur-md border-b border-[#81ecff]/15 shadow-[0_8px_32px_0_rgba(0,229,255,0.1)]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00E5FF]" data-icon="water_drop">water_drop</span>
+<h1 class="text-[#00E5FF] font-headline tracking-widest font-bold text-sm uppercase">AQUA MONITOR</h1>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-headline tracking-tighter uppercase font-bold text-[10px] text-slate-400">DISCONNECTED</span>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-7xl mx-auto space-y-8">
+<!-- Hero Analytics Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left: Main Chart Stack -->
+<div class="lg:col-span-8 space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+<div>
+<span class="text-primary font-headline font-bold tracking-tighter uppercase text-xs">Performance Matrix</span>
+<h2 class="text-3xl font-headline font-bold text-white leading-none">Historical Flux</h2>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-xs font-medium text-on-surface-variant hover:text-primary transition-colors">24H</button>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary-container text-xs font-bold transition-all shadow-[0_0_15px_rgba(129,236,255,0.3)]">7D</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-xs font-medium text-on-surface-variant hover:text-primary transition-colors">30D</button>
+</div>
+</div>
+<!-- Temperature Chart -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Temperature Variance</p>
+<h3 class="text-2xl font-headline font-bold text-primary">24.8°C <span class="text-xs font-normal text-secondary ml-1">↑ 0.4%</span></h3>
+</div>
+<span class="material-symbols-outlined text-primary/30" data-icon="device_thermostat">device_thermostat</span>
+</div>
+<div class="h-40 w-full neon-grid relative rounded-lg border border-outline-variant/10">
+<svg class="absolute inset-0 w-full h-full preserve-3d" viewbox="0 0 400 100">
+<path class="text-primary drop-shadow-[0_0_8px_rgba(129,236,255,0.8)]" d="M0,80 Q50,70 80,75 T160,40 T240,60 T320,30 T400,50" fill="none" stroke="currentColor" stroke-width="2"></path>
+<path d="M0,80 Q50,70 80,75 T160,40 T240,60 T320,30 T400,50 L400,100 L0,100 Z" fill="url(#grad-primary)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad-primary" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:currentColor;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:currentColor;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- pH Chart -->
+<div class="glass-panel p-6 rounded-xl overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">pH Equilibrium</p>
+<h3 class="text-2xl font-headline font-bold text-secondary">7.2 <span class="text-xs font-normal text-on-surface-variant ml-1">STABLE</span></h3>
+</div>
+<span class="material-symbols-outlined text-secondary/30" data-icon="science">science</span>
+</div>
+<div class="h-32 w-full neon-grid relative rounded-lg border border-outline-variant/10">
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 200 80">
+<path class="text-secondary drop-shadow-[0_0_8px_rgba(0,255,171,0.6)]" d="M0,40 Q25,35 50,45 T100,38 T150,42 T200,40" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- TDS Chart -->
+<div class="glass-panel p-6 rounded-xl overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">TDS (PPM)</p>
+<h3 class="text-2xl font-headline font-bold text-tertiary">412 <span class="text-xs font-normal text-error-dim ml-1">↓ 12%</span></h3>
+</div>
+<span class="material-symbols-outlined text-tertiary/30" data-icon="opacity">opacity</span>
+</div>
+<div class="h-32 w-full neon-grid relative rounded-lg border border-outline-variant/10">
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 200 80">
+<path class="text-tertiary drop-shadow-[0_0_8px_rgba(166,140,255,0.6)]" d="M0,60 Q30,50 60,65 T120,30 T180,45 T200,35" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Prediction & Meta -->
+<div class="lg:col-span-4 space-y-6">
+<!-- AI Prediction Card -->
+<div class="glass-panel p-8 rounded-xl relative border border-primary/20 shadow-[0_0_40px_rgba(129,236,255,0.05)] overflow-hidden">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-primary/10 blur-[60px]"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="text-lg font-headline font-bold text-white">Future Prediction</h2>
+</div>
+<p class="text-sm text-on-surface-variant mb-8 leading-relaxed">AI analysis indicates a slight mineralization spike in the next <span class="text-white font-bold">14 hours</span> due to environmental shifts.</p>
+<div class="space-y-6">
+<div class="flex items-center justify-between group">
+<span class="text-xs font-medium text-on-surface-variant">TEMP</span>
+<div class="flex items-center gap-4">
+<span class="text-lg font-headline font-bold text-white">25.2°C</span>
+<div class="w-16 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-xs font-medium text-on-surface-variant">PH LEVEL</span>
+<div class="flex items-center gap-4">
+<span class="text-lg font-headline font-bold text-white">7.1</span>
+<div class="w-16 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-2/3"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-xs font-medium text-on-surface-variant">TDS</span>
+<div class="flex items-center gap-4">
+<span class="text-lg font-headline font-bold text-white">435</span>
+<div class="w-16 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-4/5"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<span class="text-xs font-medium text-on-surface-variant">EC (µS)</span>
+<div class="flex items-center gap-4">
+<span class="text-lg font-headline font-bold text-white">680</span>
+<div class="w-16 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed-dim w-1/2"></div>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-10 py-4 rounded-xl bg-surface-bright/50 border border-outline-variant/30 text-primary font-headline font-bold text-sm tracking-widest uppercase hover:bg-surface-bright transition-all">
+                            Full Prognosis
+                        </button>
+</div>
+</div>
+<!-- Secondary Data Insights -->
+<div class="space-y-4">
+<div class="glass-panel p-5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="verified">verified</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Sensor Integrity</h4>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Node Alpha-9 Active</p>
+</div>
+</div>
+<span class="text-xs font-headline font-bold text-secondary">98%</span>
+</div>
+<div class="glass-panel p-5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="cloud_sync">cloud_sync</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Last Backup</h4>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Encrypted Cloud</p>
+</div>
+</div>
+<span class="text-xs font-headline font-bold text-on-surface-variant">2M AGO</span>
+</div>
+</div>
+</div>
+</section>
+<!-- World Standards Comparison -->
+<section class="glass-panel p-8 rounded-xl">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+<div>
+<h2 class="text-xl font-headline font-bold text-white">Compliance Overview</h2>
+<p class="text-sm text-on-surface-variant">Comparative analysis against WHO drinking water guidelines.</p>
+</div>
+<div class="flex items-center gap-4 p-2 bg-surface-container-low rounded-xl">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="microscopic view of clean blue water crystals under laboratory lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb5i2IS522GMNHDHv4bPnInXqYcEWExr5lO_KWaGgATn7arqgTOsUsKYMLktLQF_GMg3BEKM9m6R6m_iFnBcitGN7ZAlxAj3Q7wuUi9J4WC3A6iDmArmMMHSCJDZ17Ga3Y30DJLpGbm5yJSufXwMIlUftGkZ0o_RRXIBx_Bb0HMVM1tqj7NuZTBHHPu26ZGGr_rT3xKyalPO8Wk6zpEiSS1HmhPEVQSSu-NVHzz2FnDqjDyoRVZKcN5a7iTl9h4C0WkPqSbZG_eow"/>
+<div>
+<p class="text-[10px] font-bold text-primary uppercase">Current Batch</p>
+<p class="text-xs text-white">Potable Grade A</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-4 rounded-xl bg-surface-container-high border border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">Chlorine</p>
+<p class="text-xl font-headline font-bold text-white">0.2 <span class="text-[10px] font-normal text-on-surface-variant">mg/L</span></p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-high border border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">Turbidity</p>
+<p class="text-xl font-headline font-bold text-white">0.4 <span class="text-[10px] font-normal text-on-surface-variant">NTU</span></p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-high border border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">Nitrates</p>
+<p class="text-xl font-headline font-bold text-white">14.2 <span class="text-[10px] font-normal text-on-surface-variant">mg/L</span></p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-high border border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant mb-1 uppercase tracking-widest">Fluoride</p>
+<p class="text-xl font-headline font-bold text-white">0.8 <span class="text-[10px] font-normal text-on-surface-variant">mg/L</span></p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-8 px-4 bg-[#0d141e]/80 backdrop-blur-2xl rounded-t-[24px] border-t border-[#81ecff]/15 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="monitoring">monitoring</span>
+<span class="font-body text-[10px] font-medium tracking-wide">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="history">history</span>
+<span class="font-body text-[10px] font-medium tracking-wide">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#00E5FF] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)] scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="query_stats" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+<span class="font-body text-[10px] font-medium tracking-wide">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#81ecff] transition-all" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="fact_check">fact_check</span>
+<span class="font-body text-[10px] font-medium tracking-wide">WHO Standards</span>
+</a>
+</nav>
+</body></html>
